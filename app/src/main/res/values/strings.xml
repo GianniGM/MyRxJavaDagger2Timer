@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">MyRxJavaTimer</string>
+    <string name="start_timer">Start Timer</string>
+    <string name="insert_time_here">Insert time here</string>
+</resources>
