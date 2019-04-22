@@ -15,7 +15,6 @@ class MainActivity : AppCompatActivity(), TimerView {
         super.onCreate(savedInstanceState)
 
         AndroidInjection.inject(this)
-
         setContentView(R.layout.activity_main)
         timerButton.setOnClickListener {
             updateTimerText()

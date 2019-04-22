@@ -1,5 +1,7 @@
 package com.giannig.myrxjavatimer
 
+import com.giannig.myrxjavatimer.extensions.subscribeOrLog
+import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
@@ -21,10 +23,10 @@ class TimerPresenter @Inject constructor(
 
     fun updateTime(seconds: Long) {
         disposable = timerInteractor
-            .provideTimer(seconds)
-            .observeOn(Schedulers.io())
-            .subscribeOn(Schedulers.trampoline())
-            .subscribe {
+            .provideTimer(MILLI * seconds)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribeOrLog(TAG) {
                 view.updateState(it)
             }
     }
@@ -32,4 +34,10 @@ class TimerPresenter @Inject constructor(
     fun stopTimer() {
         timerInteractor.stopTimer()
     }
+
+    companion object {
+        private const val TAG = "TIMER_PRESENTER"
+        private const val MILLI = 1_000
+    }
 }
+
